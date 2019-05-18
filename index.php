@@ -1,30 +1,13 @@
 <?php
-
-	if (session_status() == PHP_SESSION_NONE) {
-	    session_start();
-	}
-
-	error_reporting(E_ALL);
-	
-	require_once 'functions.php';
+	require_once dirname(__FILE__) . '/app/db_connect.php';
+	require_once dirname(__FILE__) . '/app/functions.php';
 
 	$db = connectDb();
 
-	$result = mysqli_query($db, 'SELECT * FROM addresses');
+	$result = addressesList($db);
 
 	if(isset($_GET['search'])) {
-		$query = htmlspecialchars(mysqli_real_escape_string($db, $_GET['search']));
-
-		if (strlen($query) < 3) {
-			echo "At least 3 characters are required\n";
-		} else {
-			$query = str_replace(' ', '* ', $query) . "*";
-			$sql = "SELECT * FROM addresses 
-					WHERE MATCH(address, street, street_name, street_type, adm, adm1, adm2)
-					 	  AGAINST ('".$query."' IN BOOLEAN MODE)";
-			$result = mysqli_query($db, $sql);
-		}
-
+		$result = searchResults($_GET['search'], $db);
 	}
 
 ?>

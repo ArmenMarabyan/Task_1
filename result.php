@@ -1,38 +1,12 @@
 <?php
 
-	if (session_status() == PHP_SESSION_NONE) {
-	    session_start();
-	}
-	error_reporting(E_ALL);
+	require_once dirname(__FILE__) . '/app/db_connect.php';
+	require_once dirname(__FILE__) . '/app/functions.php';
 	
-	require_once 'functions.php';
-
 	$db = connectDb();
 
 	if(isset($_GET['id'])) {
 		$id = (int) $_GET['id'];
-
-		
-	}
-	function getDistance($fromId, $toId) {
-		global $db;
-		$earthRadius = 6371;
-		$sql = "SELECT cord_x, cord_y FROM addresses WHERE id=$fromId OR id=$toId";
-		$query = mysqli_fetch_all(mysqli_query($db, $sql));
-		$fromX = deg2rad($query[0][0]);
-		$fromY = deg2rad($query[0][1]);
-		$toX = deg2rad($query[1][0]);
-		$toY = deg2rad($query[1][1]);
-		$xDelta = abs($toX - $fromX);
-		$yDelta = abs($toY - $fromY);
-		$angle = 2 * asin(sqrt(pow(sin($xDelta / 2), 2) + cos($fromX) * cos($toX) * pow(sin($yDelta / 2), 2)));
-		$distance = $angle * $earthRadius;
-		if ($distance > 30) {
-			$distance = round($distance, 0);
-		} else {
-			$distance = round($distance, 1);
-		}
-		return $distance;
 	}
 
 	$sql = "SELECT id, street, address FROM addresses WHERE id != $id";
