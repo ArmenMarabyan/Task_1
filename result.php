@@ -19,15 +19,7 @@
 
 			<div class="col-lg-12 my-3 p-3 bg-white rounded shadow-sm">
 
-				<?php if (isset($_SESSION['errors']) && !empty($_SESSION['errors'])): ?>
-					<div class="alert alert-danger" role="alert">
-						<ul>
-						<?php foreach ($_SESSION['errors'] as $error): ?>
-							<li><?=$error?></li>
-						<?php endforeach ?>
-						</ul>
-					</div>
-				<?php endif ?>
+				<?php include dirname(__FILE__) . '/views/partials/alerts.php'; ?>
 				
 
 				<table class="table table-striped table-dark" id="addresses">

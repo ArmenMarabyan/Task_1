@@ -11,13 +11,14 @@
 
 	}
 
-
 ?>
 
 <?php require_once dirname(__FILE__) . '/views/partials/header.php'; ?>
 
 
 			<div class="col-lg-12 my-3 p-3 bg-white rounded shadow-sm">
+
+				<?php include dirname(__FILE__) . '/views/partials/alerts.php'; ?>
 
 				<form action="import.php" method='post' enctype="multipart/form-data">
 					

@@ -15,15 +15,7 @@
 
 			<div class="col-lg-12 my-3 p-3 bg-white rounded shadow-sm">
 
-				<?php if (isset($_SESSION['errors']) && !empty($_SESSION['errors'])): ?>
-					<div class="alert alert-danger" role="alert">
-						<ul>
-						<?php foreach ($_SESSION['errors'] as $error): ?>
-							<li><?=$error?></li>
-						<?php endforeach ?>
-						</ul>
-					</div>
-				<?php endif ?>
+				<?php include dirname(__FILE__) . '/views/partials/alerts.php'; ?>
 				
 				<form class="search_form mb-2" method="get" action="">
 					<div class="form-group d-flex">
@@ -55,7 +47,7 @@
 					<tbody>
 
 				<?php if(isset($result)): ?>
-					<?= mysqli_num_rows($result);?>
+						<h3><?= mysqli_num_rows($result);?> results</h3>
 						<?php while($row = mysqli_fetch_assoc($result)): ?>
 							<tr>
 								<th scope="row"><?=$row['id']?></th>

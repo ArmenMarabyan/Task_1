@@ -22,9 +22,9 @@ function connectDb() {
 		$sql = 'CREATE DATABASE roomservice';
 
 		if (mysqli_query($db, $sql)) {
-			echo "Database created successfully\n";
+			$_SESSION['success'] = ['Database created successfully'];
 		} else {
-			echo 'Error creating database: '. "\n";
+			$_SESSION['errors'] = ['Error creating database'];
 		}
 	}
 

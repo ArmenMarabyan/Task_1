@@ -18,15 +18,7 @@
 
 			<div class="col-lg-12 my-3 p-3 bg-white rounded shadow-sm">
 
-				<?php if (isset($_SESSION['errors']) && !empty($_SESSION['errors'])): ?>
-					<div class="alert alert-danger" role="alert">
-						<ul>
-						<?php foreach ($_SESSION['errors'] as $error): ?>
-							<li><?=$error?></li>
-						<?php endforeach ?>
-						</ul>
-					</div>
-				<?php endif ?>
+				<?php include dirname(__FILE__) . '/views/partials/alerts.php'; ?>
 				
 				<?php if($result): ?>
 
@@ -40,7 +32,7 @@
 						</div>
 					</div>
 				</form>
-
+				<h3><?= mysqli_num_rows($result);?> results</h3>
 				<table class="table table-striped table-dark table-responsive" id="addresses">
 					<thead>
 						<tr>

@@ -29,7 +29,7 @@ function importXml($xml, $db) {
 	$fileExt = pathinfo($xml['name'],PATHINFO_EXTENSION);
 
 	if($fileExt != 'xml') {
-		$_SESSION['errors'] = 'Please import xml';
+		$_SESSION['errors'] = ['Please upload xml'];
 	}else {
 		mysqli_query($db, "DROP TABLE IF EXISTS addresses");
 		$sql = "CREATE TABLE IF NOT EXISTS `addresses`(
@@ -45,11 +45,13 @@ function importXml($xml, $db) {
 		`cord_x` varchar(255) NOT NULL,
 		FULLTEXT(address, street, street_name, street_type, adm, adm1, adm2)
 		)";
+		//todo
 
 		if(mysqli_query($db, $sql)){
-						//echo "Table created successfully.";
+			
 		} else{
-						//echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
+			$_SESSION['errors'] = ['error'];
+			exit();
 		}
 
 		$data = simplexml_load_file($xml['tmp_name']);
@@ -71,7 +73,12 @@ function importXml($xml, $db) {
 			$res = mysqli_query($db, $sql);
 
 			if($res) {
-				header("Location: /");
+				$_SESSION['success'] = ['Xml imported successfully'];
+				if(!empty($_SERVER['HTTP_REFERER'])) {
+				    
+				
+				    header("Location: /assignment_1");
+				}
 			} 
 		}
 	}
